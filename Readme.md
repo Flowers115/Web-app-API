@@ -10,6 +10,7 @@ Questo progetto è stato realizzato per incentivare la lettura dei libri tramite
 
 ## Implementazione progetto
 Per realizzare il progetto è stata creata una barra di ricerca per genere che si apre a tendina e un button per l'avvio della ricerca secondo il genere scelto.
+```html
 
 <div class="d-flex justify-content-end grid gap-5 column-gap-3">
     <div class="col-sm-2 mt-4">
@@ -26,6 +27,7 @@ Per realizzare il progetto è stata creata una barra di ricerca per genere che s
         </button>
     </div>
 </div>
+```
 
 Una volta che si preme il button, la app invia una richiesta API al sito Openlibrary che restituisce tutti i libri del genere selezionato.
 Inoltre, se si clicca sul titolo di un libro, la app fa una seconda richiesta API al sito, che restituisce la descrizione del libro.

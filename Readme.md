@@ -85,5 +85,7 @@ Ho creato la funzione getData per richiedere tramire API al sito Openlibrary la 
 Ho fatto in modo che stessero tutti in un container (container-list) e che questo contenitore si svuoti ad ogni nuova richiesta per far spazio soltanto a quella nuova.
 All'interno del "titolo + autore" risultante dopo la richiesta, ho inserito anche la key univoca del libro, in modo che la funzione getInfo possa restituire la descrizione del libro in base alla key.
 
+![App Screenshot](https://github.com/Flowers115/Web-app-API/blob/main/Screenshot/Screenshot%202024-01-31%20alle%2018.24.37.png)
+
 ## GitHub Link  
 Il progetto è disponibile al seguente link: https://github.com/Flowers115/Web-app-API

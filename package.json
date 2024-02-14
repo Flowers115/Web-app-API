@@ -1,0 +1,20 @@
+{
+  "name": "web-app-api",
+  "version": "1.0.0",
+  "description": "Questo progetto è stato realizzato per incentivare la lettura dei libri tramite una app la quale, una volta selezionato il genere, restituisce tutti i titoli corrispondenti e la loro trama.",
+  "main": "JavaScript.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.90.1",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
+}

@@ -1,18 +1,19 @@
 function getData() {
-  const container = document.getElementById("container-list"); //serve a creare la variabile in container-list tramite id in modo che il risultato della funzione venga inserito li
-  container.innerHTML = ''; //serve a svuotare l'elenco quando si cambia categoria (e quindi valore)
-  // CONTROLLO SE E SELEZIONATO FANTASY
-  var categ = document.getElementById("inputGroupSelect01").value; //codice per selezionare l'opzione nel menu a tendina
-  if (categ == "2") // il valore che ho dato a fantasy
-  {
+  const container = document.getElementById("container-list");
+  // Utilizzo di Lodash per svuotare l'HTML
+  _.set(container, 'innerHTML', '');
+
+  var categ = document.getElementById("inputGroupSelect01").value;
+
+  if (categ == "2") {
     fetch('https://openlibrary.org/subjects/fantasy.json')
       .then(result => result.json())
       .then(data => {
-        container.innerHTML = '';
-        data.works.forEach(work => {
+        _.set(container, 'innerHTML', '');
+        _.forEach(data.works, (work) => {
           const listItem = document.createElement("li");
-          var bottonetitolo = '<button class="btn btn-xs btn-info mx-1 my-1" onclick="getInfo(\'' + work.key + '\')">' + work.title + '</button>'; //così ho creato un bottone nella lista dei titoli con all'interno il titolo del libro e fuori l'autore e quando ci clicco contiene la key del libro.
-          listItem.innerHTML = bottonetitolo + `- ${work.authors[0].name}`;
+          var bottonetitolo = `<button class="btn btn-xs btn-info mx-1 my-1" onclick="getInfo('${work.key}')">${work.title}</button>`; // Template literals per migliorare la leggibilità
+          listItem.innerHTML = bottonetitolo + `- ${_.get(work, 'authors[0].name', 'Unknown Author')}`; // Gestione di autori sconosciuti
           container.appendChild(listItem);
         });
       })
@@ -23,25 +24,26 @@ function getData() {
 var desccard = document.getElementById("description");
 
 function getInfo(k) {
-   //creo variabile in description per alloggiare la descrizione.
-  desccard.innerHTML = ''; //svuota "description" dalla descrizione del precedente libro
+  _.set(desccard, 'innerHTML', ''); // Utilizzo di Lodash per svuotare l'HTML
 
-  fetch('https://openlibrary.org' + k + '.json')
-    .then(result => result.json()) //il risultato lo converte in json
+  fetch(`https://openlibrary.org${k}.json`)
+    .then(result => result.json())
     .then(data => {
-      desccard.innerHTML = '';
+      _.set(desccard, 'innerHTML', '');
       const trama = document.createElement("p");
-      trama.innerHTML = data.description;
+      trama.innerHTML = _.get(data, 'description.value', _.get(data, 'description', 'No description available.')); // Gestione di descrizioni complesse o mancanti
       desccard.appendChild(trama);
-      console.log(typeof data.description);
-      if (data.description != '' && (typeof data.description === 'string')) {
+      if (!_.isEmpty(data.description) && _.isString(data.description)) {
         desccard.classList.remove("hidden");
       } else {
-      console.log("hidden");
+        console.log("hidden");
+        alert("Questa Descrizione non è disponibile. Ci scusiamo per il disagio.")
         desccard.classList.add("hidden");
       }
     })
+    .catch(error => {
+      console.error('Errore:', error);
+      desccard.innerHTML = 'Errore.';
+      desccard.classList.remove("hidden");
+    });
 }
-
-
-
